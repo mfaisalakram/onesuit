@@ -1,11 +1,18 @@
-import logo from './logo.svg';
+
 import './App.css';
 
+import {useRoutes} from 'react-router-dom'
+import routes from './routes'
+
+
 function App() {
+
+  const routing  = useRoutes (routes);
+
   return (
-    <div>
-      <h1>my  -- sami ullah</h1>
-    </div>
+    <>
+     {routing}
+    </>
   );
 }
 
