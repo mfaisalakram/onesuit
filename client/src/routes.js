@@ -1,19 +1,28 @@
-import AdminLayout from './Pages/shared/AdminLayout'
-import Layout from './Pages/shared/Layout'
+import AdminLayout from './Pages/shared/AdminLayout';
+import Layout from './Pages/shared/Layout';
+
+import Login from './Pages/auth/Login/Login';
+import Register from './Pages/auth/Register/Register';
 
 const routes = [
   {
-    path: "",
+    path: '',
     element: <AdminLayout />,
+    children: [
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'register',
+        element: <Register />,
+      },
+    ],
   },
   {
-    path: "/Account",
+    path: '/Account',
     element: <Layout />,
   },
-]
+];
 
-
-export default routes
-
-
-
+export default routes;
