@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Outlet } from 'react-router-dom';
+
 const AdminLayout = () => {
   return (
     <div>
@@ -1209,7 +1211,7 @@ const AdminLayout = () => {
 
         <div className="page-wrapper">
           <div className="page-content">
-            <h1>This is Outlet</h1>
+            <Outlet />
           </div>
         </div>
       </div>
