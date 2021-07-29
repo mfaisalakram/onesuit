@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import axios from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,17 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
   };
+
+  const getData = async () => {
+    const responce = await axios.get(
+      'https://test-node-samiullah.herokuapp.com/accounts/getallaccounts'
+    );
+    console.log(responce);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
@@ -59,7 +72,7 @@ const Login = () => {
                       Email Address
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       className="form-control"
                       id="inputEmailAddress"
                       placeholder="Email Address"

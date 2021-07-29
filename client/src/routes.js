@@ -23,6 +23,10 @@ const routes = [
     path: '/Account',
     element: <Layout />,
   },
+  {
+    path: '/Dashboard',
+    element: <Layout />,
+  },
 ];
 
 export default routes;
