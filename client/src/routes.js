@@ -10,22 +10,18 @@ const routes = [
     element: <AdminLayout />,
     children: [
       {
-        path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'register',
-        element: <Register />,
+        path: '/account',
+        element: <Layout />,
       },
     ],
   },
   {
-    path: '/Account',
-    element: <Layout />,
+    path: 'login',
+    element: <Login />,
   },
   {
-    path: '/Dashboard',
-    element: <Layout />,
+    path: 'register',
+    element: <Register />,
   },
 ];
 

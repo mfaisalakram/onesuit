@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
@@ -20,8 +20,13 @@ const Register = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {}, []);
+
   return (
-    <div class="d-flex align-items-center justify-content-center my-5 my-lg-0">
+    <div
+      style={{ padding: '30px 100px 100px 100px' }}
+      class="d-flex align-items-center justify-content-center my-5 my-lg-0"
+    >
       <div class="container">
         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
           <div class="col mx-auto">

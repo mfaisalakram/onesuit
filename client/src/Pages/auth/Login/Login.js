@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
+// form validation
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+
 const Login = () => {
+  const validationSchema = Yup.object().shape({
+    email: Yup.object().shape({
+      value: Yup.string().required('Email is required'),
+    }),
+    password: Yup.string().required('Call Name is required'),
+  });
+
+  const {
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,18 +41,31 @@ const Login = () => {
   };
 
   const getData = async () => {
-    const responce = await axios.get(
-      'https://test-node-samiullah.herokuapp.com/accounts/getallaccounts'
-    );
-    console.log(responce);
+    const responce = await axios
+      .post('https://test-node-samiullah.herokuapp.com/accounts/login', {
+        username: formData.email,
+        password: formData.password,
+      })
+      .then((result) => {
+        if (result.data.status == 'success') {
+          navigate('/account');
+        } else {
+          console.log(result.status);
+          console.log(result.data.status);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    getData();
+    //getData();
   }, []);
 
   return (
-    <div className="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+    <div
+      style={{ padding: '30px 100px 100px 100px' }}
+      className="row row-cols-1 row-cols-lg-2 row-cols-xl-3"
+    >
       <div className="col mx-auto">
         <div className="card">
           <div className="card-body">
@@ -66,7 +100,12 @@ const Login = () => {
                 <hr />
               </div>
               <div className="form-body">
-                <form className="row g-3" onSubmit={(e) => onSubmit(e)}>
+                <form
+                  className="row g-3"
+                  onSubmit={handleSubmit(onSubmit)}
+                  onReset={reset}
+                  // onSubmit={(e) => onSubmit(e)}
+                >
                   <div className="col-12">
                     <label for="inputEmailAddress" className="form-label">
                       Email Address
@@ -90,7 +129,6 @@ const Login = () => {
                         type="password"
                         className="form-control border-end-0"
                         id="inputChoosePassword"
-                        value="12345678"
                         placeholder="Enter Password"
                         onChange={(e) => onChange(e)}
                         value={password}
@@ -128,8 +166,13 @@ const Login = () => {
                   </div>
                   <div className="col-12">
                     <div className="d-grid">
-                      <button type="submit" className="btn btn-primary">
-                        <i className="bx bxs-lock-open"></i>Sign in
+                      <button
+                        onClick={getData}
+                        type="button"
+                        className="btn btn-primary"
+                      >
+                        <i className="bx bxs-lock-open"></i>
+                        Sign in
                       </button>
                     </div>
                   </div>
