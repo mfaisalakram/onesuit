@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-// form validation
 import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Login = () => {
-  const validationSchema = Yup.object().shape({
-    email: Yup.object().shape({
-      value: Yup.string().required('Email is required'),
-    }),
-    password: Yup.string().required('Call Name is required'),
+  const schema = yup.object().shape({
+    email: yup.string().required(),
+    password: yup.string().required(),
   });
 
   const {
+    register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(schema),
   });
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -36,11 +33,12 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onnnSubmit = (e) => {
+    getData();
   };
 
   const getData = async () => {
+    console.log(email, password);
     const responce = await axios
       .post('https://test-node-samiullah.herokuapp.com/accounts/login', {
         username: formData.email,
@@ -56,10 +54,6 @@ const Login = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    //getData();
-  }, []);
 
   return (
     <div
@@ -100,12 +94,7 @@ const Login = () => {
                 <hr />
               </div>
               <div className="form-body">
-                <form
-                  className="row g-3"
-                  onSubmit={handleSubmit(onSubmit)}
-                  onReset={reset}
-                  // onSubmit={(e) => onSubmit(e)}
-                >
+                <form className="row g-3" onSubmit={handleSubmit(onnnSubmit)}>
                   <div className="col-12">
                     <label for="inputEmailAddress" className="form-label">
                       Email Address
@@ -113,12 +102,12 @@ const Login = () => {
                     <input
                       type="text"
                       className="form-control"
-                      id="inputEmailAddress"
                       placeholder="Email Address"
                       onChange={(e) => onChange(e)}
                       name="email"
-                      value={email}
+                      {...register('email')}
                     />
+                    <p>{errors.email?.message}</p>
                   </div>
                   <div className="col-12">
                     <label for="inputChoosePassword" className="form-label">
@@ -131,9 +120,10 @@ const Login = () => {
                         id="inputChoosePassword"
                         placeholder="Enter Password"
                         onChange={(e) => onChange(e)}
-                        value={password}
                         name="password"
-                      />{' '}
+                        {...register('password')}
+                      />
+                      <p>{errors.passwrod?.message}</p>
                       <a
                         href="javascript:;"
                         className="input-group-text bg-transparent"
@@ -142,24 +132,8 @@ const Login = () => {
                       </a>
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-check form-switch">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="flexSwitchCheckChecked"
-                        checked=""
-                      />
-                      <label
-                        className="form-check-label"
-                        for="flexSwitchCheckChecked"
-                      >
-                        Remember Me
-                      </label>
-                    </div>
-                  </div>
+
                   <div className="col-md-6 text-end">
-                    {' '}
                     <a href="authentication-forgot-password.html">
                       Forgot Password ?
                     </a>
@@ -167,8 +141,8 @@ const Login = () => {
                   <div className="col-12">
                     <div className="d-grid">
                       <button
-                        onClick={getData}
-                        type="button"
+                        // onClick={getData}
+                        // type="submit"
                         className="btn btn-primary"
                       >
                         <i className="bx bxs-lock-open"></i>
