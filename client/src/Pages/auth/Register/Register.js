@@ -8,9 +8,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const Register = () => {
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required('First Name is Required'),
+    firstName: Yup.string().required('Name is Required'),
     lastName: Yup.string().required('Last Name is Required'),
-    email: Yup.string().required('Email is required'),
+    email: Yup.string().email().required('Email is required'),
     password: Yup.string().required('Password is required'),
     countryy: Yup.string().required('Country is required'),
   });
@@ -24,22 +24,9 @@ const Register = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    country: '',
-  });
-
-  const { firstName, lastName, email, password, country } = formData;
-
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log('Form Submitted');
   };
 
   useEffect(() => {}, []);
@@ -54,27 +41,32 @@ const Register = () => {
               <p>
                 <Link to="/join/login">Sign in here</Link>
               </p>
-              <span class="d-flex justify-content-center align-items-center">
-                <img
-                  class="me-2"
-                  src="/assets/images/icons/search.svg"
-                  width="16"
-                  alt="Image Description"
-                />
-                <span>Sign Up with Google</span>
-              </span>
+
+              <a class="btn my-4 shadow-sm btn-white" href="javascript:;">
+                {' '}
+                <span class="d-flex justify-content-center align-items-center">
+                  <img
+                    class="me-2"
+                    src="/assets/images/icons/search.svg"
+                    width="16"
+                    alt="Image Description"
+                  />
+                  <span>Sign Up with Google</span>
+                </span>
+              </a>
 
               <a href="javascript:;" class="btn btn-facebook">
                 <i class="bx bxl-facebook"></i>Sign Up with Facebook
               </a>
             </div>
+
             <div class="login-separater text-center mb-4">
               {' '}
               <span>OR SIGN UP WITH EMAIL</span>
               <hr />
             </div>
             <div class="form-body">
-              <form class="row g-3" onSubmit={(e) => onSubmit(e)}>
+              <form class="row g-3" onSubmit={handleSubmit(onSubmit)}>
                 <div class="col-sm-6">
                   <label for="inputFirstName" class="form-label">
                     First Name
@@ -84,10 +76,11 @@ const Register = () => {
                     class="form-control"
                     id="inputFirstName"
                     placeholder="Jhon"
-                    onChange={(e) => onChange(e)}
+                    {...register('firstName')}
+                    autoComplete="off"
                     name="firstName"
-                    value={firstName}
                   />
+                  <p style={{ color: 'red' }}>{errors.firstName?.message}</p>
                 </div>
                 <div class="col-sm-6">
                   <label for="inputLastName" class="form-label">
@@ -98,24 +91,26 @@ const Register = () => {
                     class="form-control"
                     id="inputLastName"
                     placeholder="Deo"
-                    onChange={(e) => onChange(e)}
                     name="lastName"
-                    value={lastName}
+                    {...register('lastName')}
+                    autoComplete="off"
                   />
+                  <p style={{ color: 'red' }}>{errors.lastName?.message}</p>
                 </div>
                 <div class="col-12">
                   <label for="inputEmailAddress" class="form-label">
                     Email Address
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     id="inputEmailAddress"
                     placeholder="example@user.com"
-                    onChange={(e) => onChange(e)}
                     name="email"
-                    value={email}
+                    {...register('email')}
+                    autoComplete="off"
                   />
+                  <p style={{ color: 'red' }}>{errors.email?.message}</p>
                 </div>
                 <div class="col-12">
                   <label for="inputChoosePassword" class="form-label">
@@ -127,10 +122,12 @@ const Register = () => {
                       class="form-control border-end-0"
                       id="inputChoosePassword"
                       placeholder="Enter Password"
-                      onChange={(e) => onChange(e)}
                       name="password"
-                      value={password}
-                    />{' '}
+                      {...register('password')}
+                      autoComplete="off"
+                    />
+                    <p style={{ color: 'red' }}>{errors.password?.message}</p>
+
                     <a
                       href="javascript:;"
                       class="input-group-text bg-transparent"
@@ -147,9 +144,9 @@ const Register = () => {
                     class="form-select"
                     id="inputSelectCountry"
                     aria-label="Default select example"
-                    onChange={(e) => onChange(e)}
                     name="country"
-                    value={country}
+                    {...register('country')}
+                    autoComplete="off"
                   >
                     <option selected="">Pakistan</option>
                     <option value="1">United Kingdom</option>
@@ -157,6 +154,7 @@ const Register = () => {
                     <option value="3">Dubai</option>
                   </select>
                 </div>
+                <p style={{ color: 'red' }}>{errors.country?.message}</p>
 
                 <div class="col-12">
                   <div class="d-grid">
