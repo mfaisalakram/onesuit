@@ -99,7 +99,8 @@ const Login = () => {
                     <label for="inputEmailAddress" className="form-label">
                       Email Address
                     </label>
-                    <input className="form-control" {...register("email")} />
+                    <input className="form-control"
+                     {...register("email")} />
                     <p>{errors.email?.message}</p>
                   </div>
                   <div className="col-12">
@@ -123,6 +124,7 @@ const Login = () => {
                   </div>
                   <div className="col-md-6">
                     <div className="form-check form-switch">
+                      
                       <input
                         className="form-check-input"
                         type="checkbox"
