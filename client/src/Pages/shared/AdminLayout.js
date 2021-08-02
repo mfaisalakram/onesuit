@@ -10,7 +10,7 @@ const AdminLayout = () => {
           <div className="sidebar-header">
             <div>
               <img
-                src="assets/images/logo-icon.png"
+                src="/assets/images/logo-icon.png"
                 className="logo-icon"
                 alt="logo icon"
               />
@@ -1154,7 +1154,7 @@ const AdminLayout = () => {
                   aria-expanded="false"
                 >
                   <img
-                    src="assets/images/avatars/avatar-2.png"
+                    src="/assets/images/avatars/avatar-2.png"
                     className="user-img"
                     alt="user avatar"
                   />

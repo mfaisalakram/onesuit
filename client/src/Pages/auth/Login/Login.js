@@ -37,7 +37,7 @@ const Login = () => {
       })
       .then((result) => {
         if (result.data.status == "success") {
-          navigate("/account");
+          navigate("/app/profile");
         } else {
           console.log(result.status);
           console.log(result.data.status);
@@ -51,11 +51,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div
-      style={{ padding: "30px 100px 100px 100px" }}
-      className="row row-cols-1 row-cols-lg-2 row-cols-xl-3"
-    >
-      <div className="col mx-auto">
+
         <div className="card">
           <div className="card-body">
             <div className="p-4 rounded">
@@ -63,7 +59,7 @@ const Login = () => {
                 <h3 className="">Sign in</h3>
                 <p>
                   Don't have an account yet?{" "}
-                  <Link to="/register">Sign up here</Link>
+                  <Link to="/join/register">Sign up here</Link>
                 </p>
               </div>
               <div className="d-grid">
@@ -72,7 +68,7 @@ const Login = () => {
                   <span className="d-flex justify-content-center align-items-center">
                     <img
                       className="me-2"
-                      src="assets/images/icons/search.svg"
+                      src="/assets/images/icons/search.svg"
                       width="16"
                       alt="Image Description"
                     />
@@ -162,8 +158,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
   );
 };
 

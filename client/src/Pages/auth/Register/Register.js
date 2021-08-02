@@ -23,12 +23,7 @@ const Register = () => {
   useEffect(() => {}, []);
 
   return (
-    <div
-      style={{ padding: '30px 100px 100px 100px' }}
-      class="d-flex align-items-center justify-content-center my-5 my-lg-0"
-    >
-      <div class="container">
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+
           <div class="col mx-auto">
             <div class="card">
               <div class="card-body">
@@ -37,7 +32,7 @@ const Register = () => {
                     <h3 class="">Sign Up</h3>
                     <p>
                       Already have an account?{' '}
-                      <Link to="/login">Sign in here</Link>
+                      <Link to="/join/login">Sign in here</Link>
                     </p>
                   </div>
                   <div class="d-grid">
@@ -46,7 +41,7 @@ const Register = () => {
                       <span class="d-flex justify-content-center align-items-center">
                         <img
                           class="me-2"
-                          src="assets/images/icons/search.svg"
+                          src="/assets/images/icons/search.svg"
                           width="16"
                           alt="Image Description"
                         />
@@ -160,9 +155,7 @@ const Register = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+
   );
 };
 
