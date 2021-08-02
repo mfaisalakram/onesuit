@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+// validation
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 const Register = () => {
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First Name is Required'),
+    lastName: Yup.string().required('Last Name is Required'),
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Password is required'),
+    countryy: Yup.string().required('Country is required'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,7 +58,7 @@ const Register = () => {
                   <div class="text-center">
                     <h3 class="">Sign Up</h3>
                     <p>
-                      Already have an account?{' '}
+                      Already have an account?
                       <Link to="/login">Sign in here</Link>
                     </p>
                   </div>

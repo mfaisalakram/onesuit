@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import axios from "axios";
+import axios from 'axios';
 
 // form validation
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Login = () => {
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email is required"),
-    password: Yup.string().required("Call Name is required"),
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Call Name is required'),
   });
 
   const {
@@ -25,19 +25,15 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const qwerty = (data) => {
-    console.log(data);
-  };
-
   const getData = async (data) => {
     const responce = await axios
-      .post("https://test-node-samiullah.herokuapp.com/accounts/login", {
+      .post('https://test-node-samiullah.herokuapp.com/accounts/login', {
         username: data.email,
         password: data.password,
       })
       .then((result) => {
-        if (result.data.status == "success") {
-          navigate("/account");
+        if (result.data.status == 'success') {
+          navigate('/account');
         } else {
           console.log(result.status);
           console.log(result.data.status);
@@ -52,7 +48,7 @@ const Login = () => {
 
   return (
     <div
-      style={{ padding: "30px 100px 100px 100px" }}
+      style={{ padding: '30px 100px 100px 100px' }}
       className="row row-cols-1 row-cols-lg-2 row-cols-xl-3"
     >
       <div className="col mx-auto">
@@ -62,13 +58,13 @@ const Login = () => {
               <div className="text-center">
                 <h3 className="">Sign in</h3>
                 <p>
-                  Don't have an account yet?{" "}
+                  Don't have an account yet?{' '}
                   <Link to="/register">Sign up here</Link>
                 </p>
               </div>
               <div className="d-grid">
                 <a className="btn my-4 shadow-sm btn-white" href="javascript:;">
-                  {" "}
+                  {' '}
                   <span className="d-flex justify-content-center align-items-center">
                     <img
                       className="me-2"
@@ -78,13 +74,13 @@ const Login = () => {
                     />
                     <span>Sign in with Google</span>
                   </span>
-                </a>{" "}
+                </a>{' '}
                 <a href="javascript:;" className="btn btn-facebook">
                   <i className="bx bxl-facebook"></i>Sign in with Facebook
                 </a>
               </div>
               <div className="login-separater text-center mb-4">
-                {" "}
+                {' '}
                 <span>OR SIGN IN WITH EMAIL</span>
                 <hr />
               </div>
@@ -99,9 +95,12 @@ const Login = () => {
                     <label for="inputEmailAddress" className="form-label">
                       Email Address
                     </label>
-                    <input className="form-control"
-                     {...register("email")} />
-                    <p>{errors.email?.message}</p>
+                    <input
+                      className="form-control"
+                      autoComplete="off"
+                      {...register('email')}
+                    />
+                    <p style={{ color: 'red' }}>{errors.email?.message}</p>
                   </div>
                   <div className="col-12">
                     <label for="inputChoosePassword" className="form-label">
@@ -112,8 +111,9 @@ const Login = () => {
                         type="password"
                         className="form-control border-end-0"
                         name="password"
-                        {...register("password")}
-                      />{" "}
+                        autoComplete="off"
+                        {...register('password')}
+                      />
                       <a
                         href="javascript:;"
                         className="input-group-text bg-transparent"
@@ -121,10 +121,10 @@ const Login = () => {
                         <i className="bx bx-hide"></i>
                       </a>
                     </div>
+                    <p style={{ color: 'red' }}>{errors.password?.message}</p>
                   </div>
                   <div className="col-md-6">
                     <div className="form-check form-switch">
-                      
                       <input
                         className="form-check-input"
                         type="checkbox"
@@ -140,7 +140,7 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="col-md-6 text-end">
-                    {" "}
+                    {' '}
                     <a href="authentication-forgot-password.html">
                       Forgot Password ?
                     </a>
