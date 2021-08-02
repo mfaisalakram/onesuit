@@ -5,6 +5,8 @@ import Login from './Pages/auth/Login/Login';
 import Register from './Pages/auth/Register/Register';
 import Profile from './Pages/Account/Profile';
 import NotFound from './Pages/Error/NotFound';
+import IncidentManagement from './Pages/Ticket/IncidentManagement';
+import TicketTypes from './Pages/Ticket/TicketTypes';
 
 const routes = [
   {
@@ -22,6 +24,16 @@ const routes = [
       {
         path: '/profile',
         element: <Profile />,
+      },
+      {
+        path: '/incidentmanagement',
+        element: <IncidentManagement />,
+        children: [
+          {
+            path: '/tickettype',
+            element: <TicketTypes />,
+          },
+        ],
       },
     ],
   },
