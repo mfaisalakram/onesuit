@@ -32,19 +32,15 @@ const Login = () => {
         password: data.password,
       })
       .then((result) => {
-        if (result.data.status == 'success') {
+        if (result.status == 200 && result.data.status == 'success') {
           navigate('/app/profile');
         } else {
-          console.log(result.status);
-          console.log(result.data.status);
         }
       })
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    //getData();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="card">
@@ -84,7 +80,6 @@ const Login = () => {
               className="row g-3"
               onSubmit={handleSubmit((data) => getData(data))}
               onReset={reset}
-              // onSubmit={(e) => onSubmit(e)}
             >
               <div className="col-12">
                 <label for="inputEmailAddress" className="form-label">
@@ -142,11 +137,7 @@ const Login = () => {
               </div>
               <div className="col-12">
                 <div className="d-grid">
-                  <button
-                    // onClick={getData}
-                    type="submit"
-                    className="btn btn-primary"
-                  >
+                  <button type="submit" className="btn btn-primary">
                     <i className="bx bxs-lock-open"></i>
                     Sign in
                   </button>
