@@ -52,10 +52,8 @@ const Register = () => {
       )
       .then((result) => {
         if (result.status == 201 && result.data.status == 'success') {
-          showAlert();
+          // showAlert();
           navigate('/join/login');
-        } else {
-          showAlert();
         }
       })
       .catch((error) => console.log(error));
@@ -82,25 +80,25 @@ const Register = () => {
   };
 
   return (
-    <div class="col mx-auto">
+    <div className="col mx-auto">
       <div id="alert" className="alert" style={alert}>
         User Register Register Successfully
       </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="p-4 rounded">
-            <div class="text-center">
-              <h3 class="">Sign Up</h3>
+      <div className="card">
+        <div className="card-body">
+          <div className="p-4 rounded">
+            <div className="text-center">
+              <h3 className="">Sign Up</h3>
               <p>
                 Have an account yet? <Link to="/join/login">Sign in here</Link>
               </p>
 
-              <a class="btn my-4 shadow-sm btn-white" href="javascript:;">
+              <a className="btn my-4 shadow-sm btn-white" href="javascript:;">
                 {' '}
-                <span class="d-flex justify-content-center align-items-center">
+                <span className="d-flex justify-content-center align-items-center">
                   <img
-                    class="me-2"
+                    className="me-2"
                     src="/assets/images/icons/search.svg"
                     width="16"
                     alt="Image Description"
@@ -109,25 +107,28 @@ const Register = () => {
                 </span>
               </a>
 
-              <a href="javascript:;" class="btn btn-facebook">
-                <i class="bx bxl-facebook"></i>Sign Up with Facebook
+              <a href="javascript:;" className="btn btn-facebook">
+                <i className="bx bxl-facebook"></i>Sign Up with Facebook
               </a>
             </div>
 
-            <div class="login-separater text-center mb-4">
+            <div className="login-separater text-center mb-4">
               {' '}
               <span>OR SIGN UP WITH EMAIL</span>
               <hr />
             </div>
-            <div class="form-body">
-              <form class="row g-3" onSubmit={handleSubmit((e) => getData(e))}>
-                <div class="col-sm-6">
-                  <label for="inputLastName" class="form-label">
+            <div className="form-body">
+              <form
+                className="row g-3"
+                onSubmit={handleSubmit((e) => getData(e))}
+              >
+                <div className="col-sm-6">
+                  <label for="inputLastName" className="form-label">
                     First Name
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputLastName"
                     placeholder="Firstname"
                     name="firstName"
@@ -136,13 +137,13 @@ const Register = () => {
                   />
                   <p style={mystyle}>{errors.firstName?.message}</p>
                 </div>{' '}
-                <div class="col-sm-6">
-                  <label for="inputLastName" class="form-label">
+                <div className="col-sm-6">
+                  <label for="inputLastName" className="form-label">
                     Last Name
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputLastName"
                     placeholder="Lastname"
                     name="lastName"
@@ -151,26 +152,26 @@ const Register = () => {
                   />
                   <p style={mystyle}>{errors.lastName?.message}</p>
                 </div>
-                <div class="col-sm-12">
-                  <label for="inputLastName" class="form-label">
+                <div className="col-sm-12">
+                  <label for="inputLastName" className="form-label">
                     User Name
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="username"
                     {...register('userName')}
                     autoComplete="off"
                   />
                   <p style={{ color: 'red' }}>{errors.userName?.message}</p>
                 </div>
-                <div class="col-12">
-                  <label for="inputEmailAddress" class="form-label">
+                <div className="col-12">
+                  <label for="inputEmailAddress" className="form-label">
                     Email Address
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputEmailAddress"
                     placeholder="example@user.com"
                     name="email"
@@ -179,14 +180,14 @@ const Register = () => {
                   />
                   <p style={{ color: 'red' }}>{errors.email?.message}</p>
                 </div>
-                <div class="col-12">
-                  <label for="inputChoosePassword" class="form-label">
+                <div className="col-12">
+                  <label for="inputChoosePassword" className="form-label">
                     Password
                   </label>
-                  <div class="input-group" id="show_hide_password">
+                  <div className="input-group" id="show_hide_password">
                     <input
                       type="password"
-                      class="form-control border-end-0"
+                      className="form-control border-end-0"
                       id="inputChoosePassword"
                       placeholder="Enter Password"
                       name="password"
@@ -196,19 +197,19 @@ const Register = () => {
 
                     <a
                       href="javascript:;"
-                      class="input-group-text bg-transparent"
+                      className="input-group-text bg-transparent"
                     >
-                      <i class="bx bx-hide"></i>
+                      <i className="bx bx-hide"></i>
                     </a>
                   </div>
                   <p style={{ color: 'red' }}>{errors.password?.message}</p>
                 </div>
-                {/* <div class="col-12">
-                  <label for="inputSelectCountry" class="form-label">
+                {/* <div className="col-12">
+                  <label for="inputSelectCountry" className="form-label">
                     Country
                   </label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     id="inputSelectCountry"
                     aria-label="Default select example"
                     name="country"
@@ -222,10 +223,10 @@ const Register = () => {
                   </select>
                 </div>
                 <p style={{ color: 'red' }}>{errors.country?.message}</p> */}
-                <div class="col-12">
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="bx bx-user"></i>Sign up
+                <div className="col-12">
+                  <div className="d-grid">
+                    <button type="submit" className="btn btn-primary">
+                      <i className="bx bx-user"></i>Sign up
                     </button>
                   </div>
                 </div>
