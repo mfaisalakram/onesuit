@@ -10,7 +10,7 @@ const ProfileSettings = () => {
   });
   const { fullName, email, phone, mobile, adress } = profileData;
 
-  // functions
+  // custom functions
   const onChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };

@@ -1,11 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 import ProfileSettings from './ProfileSettings';
 import ProjectStatus from './ProjectStatus';
-
 import ProfileData from './ProfileData';
 
 const Profile = () => {
+  let [loginToken, setLoginToken] = useState();
+  let [profileData, setprofileData] = useState();
+  let [isLoaded, setIsLoaded] = useState(false);
+
+  const getProfileData = () => {
+    axios
+      .get('https://test-node-samiullah.herokuapp.com/accounts/getAccount', {
+        headers: {
+          Authorization: loginToken,
+        },
+      })
+      .then(({ data }) => {
+        console.log(data);
+
+        setprofileData(data);
+        setIsLoaded(true);
+      });
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('login-Token') !== null) {
+      setLoginToken(localStorage.getItem('login-Token'));
+      getProfileData();
+      console.log('sss');
+    }
+  }, [isLoaded]);
+
+  if (!isLoaded) {
+    return <p>loading</p>;
+  }
+
   return (
     <div className="page-content">
       <div className="page-breadcrumb d-none d-sm-flex align-items-center mb-3">

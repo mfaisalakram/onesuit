@@ -1,44 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from 'react';
 
-import axios from "axios";
+import image1 from '../../images/faisal.png';
 
-import image1 from "../../images/faisal.png";
-const ProfileData = () => {
-  const [login_token, setLoginToken] = useState();
-
+const ProfileData = (props) => {
   const profiledata = [
     {
       img: image1,
-      name: "Faisal Akram",
-      job: "Full Stack Developer 😂",
-      adress: "Upper Mall, Lahore, Punjab ",
+      name: 'Faisal Akram',
+      job: 'Full Stack Developer 😂',
+      adress: 'Upper Mall, Lahore, Punjab ',
     },
   ];
 
-  const getProfileData = () => {
-    axios
-      .get(
-        "https://test-node-samiullah.herokuapp.com/accounts/getAccount",
-        {
-          headers : {
-            "authorization" : login_token
-          }
-        }
-        
-      )
-      .then(({ data }) => {
-      
-        const ass =  data.Account
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    if (localStorage.getItem("login-Token") !== null ) {
-      setLoginToken(localStorage.getItem("login-Token"));
-      getProfileData()
-    }
-  }, []);
+    // console.log(props);
+  }, [props]);
 
   return (
     <div className="card">
