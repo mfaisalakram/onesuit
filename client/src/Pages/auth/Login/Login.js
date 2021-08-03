@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import AsyncLocalStorage from '@createnextapp/async-local-storage'
+
 import axios from 'axios';
 
 // form validation
@@ -31,9 +33,10 @@ const Login = () => {
         username: data.email,
         password: data.password,
       })
-      .then((result) => {
+      .then(async (result) => {
         if (result.status == 200 && result.data.status == 'success') {
-          localStorage.setItem("login-Token", result.data.token)
+          // localStorage.setItem("login-Token", result.data.token)
+          await AsyncLocalStorage.setItem('login-Token', result.data.token)
           navigate('/app/profile');
         } else {
         }

@@ -1123,6 +1123,11 @@
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
 
+"@createnextapp/async-local-storage@^1.0.1":
+  "integrity" "sha512-9C6WMjpp2qP9HE/R+rZcMt3ilqeXP6QdMhYzw5gy865xb8ZqYVnJbsLY3hK03qxwSIV8i7Vk4jTzCBdeGkRbuw=="
+  "resolved" "https://registry.npmjs.org/@createnextapp/async-local-storage/-/async-local-storage-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@csstools/convert-colors@^1.4.0":
   "integrity" "sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw=="
   "resolved" "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"
