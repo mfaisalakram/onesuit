@@ -33,6 +33,7 @@ const Login = () => {
       })
       .then((result) => {
         if (result.status == 200 && result.data.status == 'success') {
+          localStorage.setItem("login-Token", result.data.token)
           navigate('/app/profile');
         } else {
         }
