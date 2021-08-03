@@ -1,11 +1,11 @@
 import React from 'react';
 
-import image1 from '../../images/faisal.png'
+import image1 from '../../images/faisal.png';
 const ProfileData = () => {
-  console.log(image1)
+  console.log(image1);
   const profiledata = [
     {
-      img:  image1,
+      img: image1,
       name: 'Faisal Akram',
       job: 'Full Stack Developer 😂',
       adress: 'Upper Mall, Lahore, Punjab ',
@@ -14,20 +14,17 @@ const ProfileData = () => {
 
   return (
     <div className="card">
-
-
-
       {profiledata.map((item, index) => {
         return (
           <div className="card-body  ">
- 
             <div className="d-flex flex-column align-items-center text-center">
               <img
                 key={index}
                 src={item.img}
                 alt="Profile Image"
-                className="rounded-circle p-1"
-                width="110"
+                className="rounded-circle p-1 bg-primary"
+                width="90"
+                height="95"
               />
               <div className="mt-3">
                 <h4 key={index}>{item.name}</h4>

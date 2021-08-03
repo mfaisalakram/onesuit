@@ -1,5 +1,5 @@
-import AdminLayout from './Pages/shared/AdminLayout';
-import Layout from './Pages/shared/Layout';
+import AdminLayout from './Pages/shared/AdminLayout/AdminLayout';
+import Layout from './Pages/shared/Layout/Layout';
 
 import Login from './Pages/auth/Login/Login';
 import Register from './Pages/auth/Register/Register';

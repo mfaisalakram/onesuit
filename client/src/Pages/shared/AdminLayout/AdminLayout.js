@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Outlet , Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
+
+import UserBox from './UserBox';
 
 const AdminLayout = () => {
   return (
@@ -45,10 +47,9 @@ const AdminLayout = () => {
                     <i className="bx bx-right-arrow-alt"></i>Ticket Type
                   </Link>
                 </li>
-           </ul>
+              </ul>
             </li>
-       
-  </ul>
+          </ul>
         </div>
 
         <header>
@@ -618,66 +619,7 @@ const AdminLayout = () => {
                   </li>
                 </ul>
               </div>
-              <div className="user-box dropdown">
-                <a
-                  className="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="/assets/images/avatars/avatar-2.png"
-                    className="user-img"
-                    alt="user avatar"
-                  />
-                  <div className="user-info ps-3">
-                    <p className="user-name mb-0">Pauline Seitz</p>
-                    <p className="designattion mb-0">Web Designer</p>
-                  </div>
-                </a>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-user"></i>
-                      <span>Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-cog"></i>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-home-circle"></i>
-                      <span>Dashboard</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-dollar-circle"></i>
-                      <span>Earnings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-download"></i>
-                      <span>Downloads</span>
-                    </a>
-                  </li>
-                  <li>
-                    <div className="dropdown-divider mb-0"></div>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="javascript:;">
-                      <i className="bx bx-log-out-circle"></i>
-                      <span>Logout</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <UserBox />
             </nav>
           </div>
         </header>
@@ -694,9 +636,10 @@ const AdminLayout = () => {
       {/* <a href="javaScript:;" className="back-to-top"><i className="bx bxs-up-arrow-alt"></i></a> */}
 
       <footer className="page-footer">
-        <p className="mb-0">Ticket Management - Copyright © 2021. All right reserved.</p>
+        <p className="mb-0">
+          Ticket Management - Copyright © 2021. All right reserved.
+        </p>
       </footer>
-
     </div>
   );
 };
