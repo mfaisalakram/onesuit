@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
-const ProfileSettings = () => {
+const ProfileSettings = ({ account }) => {
   const [profileData, setProfileData] = useState({
-    fullName: 'Faisal Akram',
-    email: 'faisalakram1133@gmail.com',
-    phone: '0324-8484999',
-    mobile: '042 5042231',
-    adress: 'Upper Mall Lahore',
+    firstName: account?.firstName,
+    lastName: account?.lastName,
+    fullName: `${account?.firstName} ${account?.lastName}`,
+    email: account?.email,
+    adress: account?.token,
   });
-  const { fullName, email, phone, mobile, adress } = profileData;
+
+  let { firstName, lastName, fullName, email, adress } = profileData;
 
   // custom functions
   const onChange = (e) => {
@@ -16,13 +18,45 @@ const ProfileSettings = () => {
   };
 
   const saveChanges = () => {
-    console.log('ssave changes');
+    console.log('save changes');
   };
-
+  useEffect(() => {}, profileData);
   return (
     <div className="card">
       <div className="card-body">
         <form action="" onSubmit={saveChanges}>
+          <div className="row mb-3">
+            <div className="col-sm-3">
+              <h6 className="mb-0">First Name</h6>
+            </div>
+            <div className="col-sm-9 text-secondary">
+              <input
+                type="text"
+                className="form-control"
+                // value={account?.firstName}
+                value={firstName}
+                name="firstName"
+                onChange={(e) => onChange(e)}
+                autoComplete="off"
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-sm-3">
+              <h6 className="mb-0">Last Name</h6>
+            </div>
+            <div className="col-sm-9 text-secondary">
+              <input
+                type="text"
+                className="form-control"
+                // value={account?.lastName}
+                value={lastName}
+                name="lastName"
+                onChange={(e) => onChange(e)}
+                autoComplete="off"
+              />
+            </div>
+          </div>
           <div className="row mb-3">
             <div className="col-sm-3">
               <h6 className="mb-0">Full Name</h6>
@@ -31,9 +65,11 @@ const ProfileSettings = () => {
               <input
                 type="text"
                 className="form-control"
+                // value={`${account?.firstName}  ${account?.lastName}`}
                 value={fullName}
                 name="fullName"
                 onChange={(e) => onChange(e)}
+                autoComplete="off"
               />
             </div>
           </div>
@@ -45,51 +81,28 @@ const ProfileSettings = () => {
               <input
                 type="text"
                 className="form-control"
+                // value={account?.email}
                 value={email}
                 onChange={(e) => onChange(e)}
+                autoComplete="off"
                 name="email"
               />
             </div>
           </div>
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Phone</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                className="form-control"
-                value={phone}
-                name="phone"
-                onChange={(e) => onChange(e)}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Mobile</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                className="form-control"
-                value={mobile}
-                name="mobile"
-                onChange={(e) => onChange(e)}
-              />
-            </div>
-          </div>
+
           <div className="row mb-3">
             <div className="col-sm-3">
               <h6 className="mb-0">Address</h6>
             </div>
             <div className="col-sm-9 text-secondary">
               <input
+                onChange={(e) => onChange(e)}
+                autoComplete="off"
                 type="text"
                 className="form-control"
+                // value={account?.token}
                 value={adress}
                 name="adress"
-                onChange={(e) => onChange(e)}
               />
             </div>
           </div>

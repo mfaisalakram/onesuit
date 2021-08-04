@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 
 import image1 from '../../images/faisal.png';
 
-const ProfileData = (props) => {
-  const profiledata = [
+const ProfileData = ({ account }) => {
+  const profileData = [
     {
       img: image1,
-      name: 'Faisal Akram',
-      job: 'Full Stack Developer 😂',
-      adress: 'Upper Mall, Lahore, Punjab ',
+      name: `${account?.firstName} ${account?.lastName}`,
+      job: 'Full Stack Developer',
+      adress: 'Upper Mall Lahore',
     },
   ];
 
-  useEffect(() => {
-    // console.log(props);
-  }, [props]);
+  // useEffect(() => {}, [profileData]);
 
   return (
     <div className="card">
-      {profiledata.map((item, index) => {
+      {profileData.map((item, index) => {
         return (
           <div className="card-body  ">
             <div className="d-flex flex-column align-items-center text-center">

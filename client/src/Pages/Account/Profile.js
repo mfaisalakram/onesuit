@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import AsyncLocalStorage from '@createnextapp/async-local-storage'
+import React, { useEffect, useState } from 'react';
+import AsyncLocalStorage from '@createnextapp/async-local-storage';
 
-import axios from "axios";
+import axios from 'axios';
 
-import ProfileSettings from "./ProfileSettings";
-import ProjectStatus from "./ProjectStatus";
-import ProfileData from "./ProfileData";
+import ProfileSettings from './ProfileSettings';
+import ProjectStatus from './ProjectStatus';
+import ProfileData from './ProfileData';
 
 const Profile = () => {
   let [loginToken, setLoginToken] = useState();
-  let [profileData, setprofileData] = useState();
+  let [profileData, setProfileData] = useState();
 
   const getProfileData = () => {
     axios
-      .get("https://test-node-samiullah.herokuapp.com/accounts/getAccount", {
+      .get('https://test-node-samiullah.herokuapp.com/accounts/getAccount', {
         headers: {
           Authorization: loginToken,
         },
       })
       .then(({ data }) => {
-        setprofileData(data);
+        setProfileData(data);
       });
   };
 
   const getToken = async () => {
     let token;
     try {
-      token = await AsyncLocalStorage.getItem("login-Token");      
+      token = await AsyncLocalStorage.getItem('login-Token');
       setLoginToken(token);
-    } catch (e) {
-      
+    } catch (err) {
+      console.log(err);
     }
   };
   useEffect(() => {
@@ -43,7 +43,6 @@ const Profile = () => {
 
   return (
     <div className="page-content">
-      { JSON.stringify(profileData) }
       <div className="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div className="breadcrumb-title pe-3">User Profile</div>
         <div className="ps-3">
@@ -55,7 +54,7 @@ const Profile = () => {
                 </a>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                User Profilep
+                User Profile
               </li>
             </ol>
           </nav>
@@ -70,11 +69,11 @@ const Profile = () => {
               className="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
               data-bs-toggle="dropdown"
             >
-              {" "}
+              {' '}
               <span className="visually-hidden">Toggle Dropdown</span>
             </button>
             <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
-              {" "}
+              {' '}
               <a className="dropdown-item" href="javascript:;">
                 Action
               </a>
@@ -84,7 +83,7 @@ const Profile = () => {
               <a className="dropdown-item" href="javascript:;">
                 Something else here
               </a>
-              <div className="dropdown-divider"></div>{" "}
+              <div className="dropdown-divider"></div>{' '}
               <a className="dropdown-item" href="javascript:;">
                 Separated link
               </a>
@@ -96,11 +95,11 @@ const Profile = () => {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-              <ProfileData />
+              <ProfileData account={profileData?.Account} />
             </div>
             <div className="row col-lg-8">
               <div className="col-lg-12">
-                <ProfileSettings />
+                <ProfileSettings account={profileData?.Account} />
               </div>
               <div className="col-sm-12">
                 <ProjectStatus />
