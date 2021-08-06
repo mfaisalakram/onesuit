@@ -8,6 +8,9 @@ import NotFound from './Pages/Error/NotFound';
 import IncidentManagement from './Pages/Ticket/IncidentManagement';
 import TicketTypes from './Pages/Ticket/TicketTypes';
 
+import Account from './Pages/Account/Account';
+import AllAccounts from './Pages/Account/AllAccounts';
+
 const routes = [
   {
     path: '',
@@ -32,6 +35,16 @@ const routes = [
           {
             path: '/tickettype',
             element: <TicketTypes />,
+          },
+        ],
+      },
+      {
+        path: '/account',
+        element: <Account />,
+        children: [
+          {
+            path: '/allAccounts',
+            element: <AllAccounts />,
           },
         ],
       },

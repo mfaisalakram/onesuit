@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import AsyncLocalStorage from '@createnextapp/async-local-storage'
+import AsyncLocalStorage from '@createnextapp/async-local-storage';
 
 import axios from 'axios';
+
+//loader
+import Loader from '../Loader/Loader';
 
 // form validation
 import { useForm } from 'react-hook-form';
@@ -11,6 +14,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().required('Call Name is required'),
@@ -28,6 +33,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const getData = async (data) => {
+    setLoading(true);
     const responce = await axios
       .post('https://test-node-samiullah.herokuapp.com/accounts/login', {
         username: data.email,
@@ -36,15 +42,21 @@ const Login = () => {
       .then(async (result) => {
         if (result.status == 200 && result.data.status == 'success') {
           // localStorage.setItem("login-Token", result.data.token)
-          await AsyncLocalStorage.setItem('login-Token', result.data.token)
+          await AsyncLocalStorage.setItem('login-Token', result.data.token);
           navigate('/app/profile');
         } else {
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {}, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="card">
@@ -82,12 +94,9 @@ const Login = () => {
           <div className="form-body">
             <form
               className="row g-3"
-              onSubmit={handleSubmit((data) =>
-                {
-                      getData(data)
-                } 
-            
-                 )}
+              onSubmit={handleSubmit((data) => {
+                getData(data);
+              })}
               onReset={reset}
             >
               <div className="col-12">

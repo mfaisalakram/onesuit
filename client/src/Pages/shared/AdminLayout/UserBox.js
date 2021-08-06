@@ -39,10 +39,10 @@ const UserBox = () => {
 
       <ul className="dropdown-menu dropdown-menu-end">
         <li>
-          <a className="dropdown-item" href="javascript:;">
+          <Link className="dropdown-item" to="/app/profile">
             <i className="bx bx-user"></i>
             <span>Profile</span>
-          </a>
+          </Link>
         </li>
         <li>
           <a className="dropdown-item" href="javascript:;">

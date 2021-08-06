@@ -39,6 +39,21 @@ const AdminLayout = () => {
                 <div className="parent-icon">
                   <i className="bx bx-spa"></i>
                 </div>
+                <div className="menu-title">Account Management</div>
+              </a>
+              <ul>
+                <li>
+                  <Link to="/app/account/allAccounts">
+                    <i className="bx bx-right-arrow-alt"></i>All Account
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:;" className="has-arrow">
+                <div className="parent-icon">
+                  <i className="bx bx-spa"></i>
+                </div>
                 <div className="menu-title">Incident Management</div>
               </a>
               <ul>
