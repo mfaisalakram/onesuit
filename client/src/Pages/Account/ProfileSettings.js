@@ -16,11 +16,7 @@ const ProfileSettings = ({ account }) => {
 
   // let { firstName, lastName, fullName, email, address } = profileData;
 
-  // custom functions
-  const onChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  };
-
+ 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("firstName is required"),
     lastName: Yup.string().required("lastName is required"),
