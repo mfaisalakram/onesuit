@@ -82,7 +82,12 @@ const Login = () => {
           <div className="form-body">
             <form
               className="row g-3"
-              onSubmit={handleSubmit((data) => getData(data))}
+              onSubmit={handleSubmit((data) =>
+                {
+                      getData(data)
+                } 
+            
+                 )}
               onReset={reset}
             >
               <div className="col-12">
