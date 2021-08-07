@@ -17,6 +17,7 @@
     "react-loader-spinner": "^4.0.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "4.0.3",
+    "react-toast-notifications": "^2.5.1",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },

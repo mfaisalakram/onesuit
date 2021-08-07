@@ -1,6 +1,8 @@
-import React, { useEffect, useState ,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
-import {LoginContext}  from '../../Context/loginContext' 
+import { LoginContext } from "../../Context/loginContext";
+import { ToastProvider } from 'react-toast-notifications';
+
 
 import axios from "axios";
 
@@ -9,15 +11,12 @@ import ProjectStatus from "./ProjectStatus";
 import ProfileData from "./ProfileData";
 
 const Profile = () => {
-
-  const {loginTokenContext, setLoginTokenContext} = useContext(LoginContext)
-  const [isLoading, setLoading] = useState(false)
+  const { loginTokenContext, setLoginTokenContext } = useContext(LoginContext);
+  const [isLoading, setLoading] = useState(false);
 
   let [profileData, setProfileData] = useState({});
 
   const getProfileData = async () => {
-
-  
     if (loginTokenContext != "") {
       try {
         const api_result = await axios.get(
@@ -33,10 +32,8 @@ const Profile = () => {
       } catch (err) {
         console.log(err);
       }
-    }
-    else{
-    getToken();
-
+    } else {
+      getToken();
     }
     // setProfileData(api_result?.res);
   };
@@ -57,7 +54,7 @@ const Profile = () => {
   }, [isLoading]);
 
   return (
-    <div className="page-content"> 
+    <div className="page-content">
       <div className="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div className="breadcrumb-title pe-3">User Profile</div>
         <div className="ps-3">
@@ -108,11 +105,14 @@ const Profile = () => {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-              <ProfileData account={profileData} />
+            
+                <ProfileData account={profileData} />
+         
             </div>
             <div className="row col-lg-8">
               <div className="col-lg-12">
-                <ProfileSettings account={profileData} />
+              <ToastProvider>      <ProfileSettings account={profileData} />    </ToastProvider>
+           
               </div>
               <div className="col-sm-12">
                 <ProjectStatus />

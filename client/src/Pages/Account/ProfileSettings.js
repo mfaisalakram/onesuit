@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useEffect } from "react";
+import { useToasts } from 'react-toast-notifications';
 
 import axios from "axios";
 
@@ -10,6 +11,7 @@ import { Form, Formik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 
 const ProfileSettings = (props) => {
+  const { addToast } = useToasts();
   const { loginTokenContext } = useContext(LoginContext);
   const [profileData, setProfileData] = useState();
 
@@ -20,7 +22,8 @@ const ProfileSettings = (props) => {
   }, [props]);
   return (
     <div className="card">
-      <div className="card-body">
+      <div className="card-body"> 
+  
         <Formik
           initialValues={{
             firstName: profileData?.firstName,
@@ -46,7 +49,14 @@ const ProfileSettings = (props) => {
                     Authorization: loginTokenContext,
                   },
                 })
-                .then((response) => {console.log(response)})
+                .then((response) => {
+                  if(response.status === 200) {
+                    addToast('Saved Successfully', { appearance: 'success' ,  autoDismiss: true });
+                  }
+                  else{
+                    addToast('Oops!! Error while saving!!', { appearance: 'error' ,  autoDismiss: true });
+                  }
+                })
                 .catch((error) => {console.log(error)});
 
               // console.log(result);
@@ -120,6 +130,7 @@ const ProfileSettings = (props) => {
             </div>
           </Form>
         </Formik>
+
       </div>
     </div>
   );
