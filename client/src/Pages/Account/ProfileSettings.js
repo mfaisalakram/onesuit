@@ -1,157 +1,125 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useEffect } from "react";
 
-import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import { LoginContext } from "../../Context/loginContext";
+
+import { Form, Formik, ErrorMessage, Field } from "formik";
+
 import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 
-const ProfileSettings = ({ account }) => {
-  const [profileData, setProfileData] = useState({
-    firstName: account?.firstName,
-    lastName: account?.lastName,
-    fullName: account?.firstName,
-    email: account?.email,
-    address: account?.token,
-  });
-
-  // let { firstName, lastName, fullName, email, address } = profileData;
-
-  // custom functions
-  const onChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  };
-
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("firstName is required"),
-    lastName: Yup.string().required("lastName is required"),
-    fullName: Yup.string().required("fullName is required"),
-    email: Yup.string().required("email is required"),
-    address: Yup.string().required("address is required"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
-
-  const ProfileSubmithandler = async (data) => {
-    console.log(data);
-    const isValid = await validationSchema.isValid(data);
-
-    console.log(isValid);
-    console.log(errors);
-  };
+const ProfileSettings = (props) => {
+  const { loginTokenContext } = useContext(LoginContext);
+  const [profileData, setProfileData] = useState();
 
   useEffect(() => {
-    setProfileData(account);
-  }, [account]);
+    if (props?.account) {
+      setProfileData(props?.account);
+    }
+  }, [props]);
   return (
     <div className="card">
       <div className="card-body">
-        <form
-          action=""
-          onSubmit={handleSubmit((data) => ProfileSubmithandler(data))}
-        >
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">First Name</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                className="form-control"
-                name="firstName"
-                onChange={(e) => onChange(e)}
-                //value={profileData?.firstName}
-                autoComplete="off"
-                  {...register('firstName')}
-              />
-            </div>
-            <div>
-              <p style={{ color: "red" }}>{errors.firstName?.message}</p>
-              <p style={{ color: "red" }}>{errors.lastName?.message}</p>
-              <p style={{ color: "red" }}>{errors.email?.message}</p>
-              <p style={{ color: "red" }}>{errors.fullName?.message}</p>
-              <p style={{ color: "red" }}>{errors.address?.message}</p>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Last Name</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                name="lastName"
-                className="form-control"
-                onChange={(e) => onChange(e)}
-                // value={lastName}
-                autoComplete="off"
-                {...register("lastName")}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Full Name</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => onChange(e)}
-                name="fullName"
-                {...register("fullName")}
-                autoComplete="off"
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Email</h6>
-            </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => onChange(e)}
-                // value={email}
-                autoComplete="off"
-                name="email"
-                {...register("email")}
-              />
-            </div>
-          </div>
+        <Formik
+          initialValues={{
+            firstName: profileData?.firstName,
+            lastName: profileData?.lastName,
+            email: profileData?.email,
+            address: profileData?.address,
+            username: profileData?.username,
+          }}
+          validationSchema={Yup.object({
+            firstName: Yup.string().required("firstName is required"),
+            lastName: Yup.string().required("lastName is required"),
+            username: Yup.string().required("fullName is required"),
+            email: Yup.string().email().required("email is required"),
+            address: Yup.string().required("address is required"),
+          })}
+          onSubmit={(data, { resetForm }) => {
+ 
 
-          <div className="row mb-3">
-            <div className="col-sm-3">
-              <h6 className="mb-0">Address</h6>
+            try {
+              axios
+                .post("https://test-node-samiullah.herokuapp.com/accounts/updateProfile", data, {
+                  headers: {
+                    Authorization: loginTokenContext,
+                  },
+                })
+                .then((response) => {console.log(response)})
+                .catch((error) => {console.log(error)});
+
+              // console.log(result);
+            } catch (err) {
+              console.log(err);
+            }
+
+           // resetForm();
+          }}
+          enableReinitialize
+        >
+          <Form>
+            <div className="row mb-3">
+              <div className="col-sm-3">
+                <h6 className="mb-0">First Name</h6>
+              </div>
+              <div className="col-sm-9 text-secondary">
+                <Field type="text" className="form-control" name="firstName" />
+                <ErrorMessage name="firstName" />
+              </div>
             </div>
-            <div className="col-sm-9 text-secondary">
-              <input
-                autoComplete="off"
-                type="text"
-                className="form-control"
-                // value={address}
-                onChange={(e) => onChange(e)}
-                name="address"
-                {...register("address")}
-              />
+            <div className="row mb-3">
+              <div className="col-sm-3">
+                <h6 className="mb-0">Last Name</h6>
+              </div>
+              <div className="col-sm-9 text-secondary">
+                <Field type="text" name="lastName" className="form-control" />
+                <ErrorMessage name="lastName" />
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-3"></div>
-            <div className="col-sm-9 text-secondary">
-              <button type="submit" className="btn btn-primary px-4">
-                Save Changes{" "}
-              </button>
+            <div className="row mb-3">
+              <div className="col-sm-3">
+                <h6 className="mb-0">Username</h6>
+              </div>
+              <div className="col-sm-9 text-secondary">
+                <Field type="text" className="form-control" name="username" />
+                <ErrorMessage name="username" />
+              </div>
             </div>
-          </div>
-        </form>
+            <div className="row mb-3">
+              <div className="col-sm-3">
+                <h6 className="mb-0">Email</h6>
+              </div>
+              <div className="col-sm-9 text-secondary">
+                <Field type="text" className="form-control" name="email" />
+                <ErrorMessage name="email" />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-sm-3">
+                <h6 className="mb-0">Address</h6>
+              </div>
+              <div className="col-sm-9 text-secondary">
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  className="form-control"
+                  name="address"
+                />
+                <ErrorMessage name="address" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-3"></div>
+              <div className="col-sm-9 text-secondary">
+                <button type="submit" className="btn btn-primary px-4">
+                  Update
+                </button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
       </div>
     </div>
   );

@@ -1,48 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import AsyncLocalStorage from '@createnextapp/async-local-storage';
+import React, { useEffect, useState ,useContext } from "react";
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
+import {LoginContext}  from '../../Context/loginContext' 
 
-import axios from 'axios';
+import axios from "axios";
 
-import ProfileSettings from './ProfileSettings';
-import ProjectStatus from './ProjectStatus';
-import ProfileData from './ProfileData';
+import ProfileSettings from "./ProfileSettings";
+import ProjectStatus from "./ProjectStatus";
+import ProfileData from "./ProfileData";
 
 const Profile = () => {
-  let [loginToken, setLoginToken] = useState();
-  let [profileData, setProfileData] = useState();
 
-  const getProfileData = () => {
-    axios
-      .get('https://test-node-samiullah.herokuapp.com/accounts/getAccount', {
-        headers: {
-          Authorization: loginToken,
-        },
-      })
-      .then(({ data }) => {
-        setProfileData(data);
-      });
+  const {loginTokenContext, setLoginTokenContext} = useContext(LoginContext)
+  const [isLoading, setLoading] = useState(false)
+
+  let [profileData, setProfileData] = useState({});
+
+  const getProfileData = async () => {
+
+  
+    if (loginTokenContext != "") {
+      try {
+        const api_result = await axios.get(
+          "https://test-node-samiullah.herokuapp.com/accounts/getAccount",
+          {
+            headers: {
+              Authorization: loginTokenContext,
+            },
+          }
+        );
+
+        setProfileData(api_result.data.Account);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    else{
+    getToken();
+
+    }
+    // setProfileData(api_result?.res);
   };
 
   const getToken = async () => {
     let token;
     try {
-      token = await AsyncLocalStorage.getItem('login-Token');
-      setLoginToken(token);
+      token = await AsyncLocalStorage.getItem("login-Token");
+      setLoginTokenContext(token);
+
+      setLoading(true);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    getToken();
     getProfileData();
-  }, [loginToken]);
-
-  if (!loginToken) {
-    return <p>loading</p>;
-  }
+  }, [isLoading]);
 
   return (
-    <div className="page-content">
+    <div className="page-content"> 
       <div className="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div className="breadcrumb-title pe-3">User Profile</div>
         <div className="ps-3">
@@ -69,11 +84,9 @@ const Profile = () => {
               className="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
               data-bs-toggle="dropdown"
             >
-              {' '}
               <span className="visually-hidden">Toggle Dropdown</span>
             </button>
             <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
-              {' '}
               <a className="dropdown-item" href="javascript:;">
                 Action
               </a>
@@ -83,7 +96,7 @@ const Profile = () => {
               <a className="dropdown-item" href="javascript:;">
                 Something else here
               </a>
-              <div className="dropdown-divider"></div>{' '}
+              <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="javascript:;">
                 Separated link
               </a>
@@ -95,11 +108,11 @@ const Profile = () => {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-              <ProfileData account={profileData?.Account} />
+              <ProfileData account={profileData} />
             </div>
             <div className="row col-lg-8">
               <div className="col-lg-12">
-                <ProfileSettings account={profileData?.Account} />
+                <ProfileSettings account={profileData} />
               </div>
               <div className="col-sm-12">
                 <ProjectStatus />

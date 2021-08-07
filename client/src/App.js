@@ -4,6 +4,7 @@ import './App.css';
 import {useRoutes} from 'react-router-dom'
 import routes from './routes'
 
+import { LoginContextProvider } from './Context/loginContext'
 
 function App() {
 
@@ -11,7 +12,9 @@ function App() {
 
   return (
     <>
-     {routing}
+    <LoginContextProvider>
+    {routing}
+    </LoginContextProvider>
     </>
   );
 }
