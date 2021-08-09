@@ -59,12 +59,12 @@ const ProfileSettings = (props) => {
                 })
                 .catch((error) => {console.log(error)});
 
-              // console.log(result);
+        
             } catch (err) {
               console.log(err);
             }
 
-           // resetForm();
+       
           }}
           enableReinitialize
         >
