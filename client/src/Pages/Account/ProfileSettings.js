@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { useEffect } from "react";
+import React, { useState, useContext } from 'react';
+import { useEffect } from 'react';
 import { useToasts } from 'react-toast-notifications';
 
-import axios from "axios";
+import axios from 'axios';
 
-import { LoginContext } from "../../Context/loginContext";
+import { LoginContext } from '../../Context/loginContext';
 
-import { Form, Formik, ErrorMessage, Field } from "formik";
+import { Form, Formik, ErrorMessage, Field } from 'formik';
 
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 const ProfileSettings = (props) => {
   const { addToast } = useToasts();
@@ -22,8 +22,7 @@ const ProfileSettings = (props) => {
   }, [props]);
   return (
     <div className="card">
-      <div className="card-body"> 
-  
+      <div className="card-body">
         <Formik
           initialValues={{
             firstName: profileData?.firstName,
@@ -33,38 +32,43 @@ const ProfileSettings = (props) => {
             username: profileData?.username,
           }}
           validationSchema={Yup.object({
-            firstName: Yup.string().required("firstName is required"),
-            lastName: Yup.string().required("lastName is required"),
-            username: Yup.string().required("fullName is required"),
-            email: Yup.string().email().required("email is required"),
-            address: Yup.string().required("address is required"),
+            firstName: Yup.string().required('firstName is required'),
+            lastName: Yup.string().required('lastName is required'),
+            username: Yup.string().required('fullName is required'),
+            email: Yup.string().email().required('email is required'),
+            address: Yup.string().required('address is required'),
           })}
           onSubmit={(data, { resetForm }) => {
- 
-
             try {
               axios
-                .post("https://test-node-samiullah.herokuapp.com/accounts/updateProfile", data, {
-                  headers: {
-                    Authorization: loginTokenContext,
-                  },
-                })
+                .post(
+                  'https://test-node-samiullah.herokuapp.com/accounts/updateProfile',
+                  data,
+                  {
+                    headers: {
+                      Authorization: loginTokenContext,
+                    },
+                  }
+                )
                 .then((response) => {
-                  if(response.status === 200) {
-                    addToast('Saved Successfully', { appearance: 'success' ,  autoDismiss: true });
-                  }
-                  else{
-                    addToast('Oops!! Error while saving!!', { appearance: 'error' ,  autoDismiss: true });
+                  if (response.status === 200) {
+                    addToast('Saved Successfully', {
+                      appearance: 'success',
+                      autoDismiss: true,
+                    });
+                  } else {
+                    addToast('Oops!! Error while saving!!', {
+                      appearance: 'error',
+                      autoDismiss: true,
+                    });
                   }
                 })
-                .catch((error) => {console.log(error)});
-
-        
+                .catch((error) => {
+                  console.log(error);
+                });
             } catch (err) {
               console.log(err);
             }
-
-       
           }}
           enableReinitialize
         >
@@ -130,7 +134,6 @@ const ProfileSettings = (props) => {
             </div>
           </Form>
         </Formik>
-
       </div>
     </div>
   );

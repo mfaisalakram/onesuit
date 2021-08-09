@@ -1,7 +1,7 @@
-import React, { useState, useEffect , useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import {LoginContext} from '../../../Context/loginContext'
+import { LoginContext } from '../../../Context/loginContext';
 
 import AsyncLocalStorage from '@createnextapp/async-local-storage';
 
@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const Login = () => {
-  const { loginTokenContext,  setLoginTokenContext} = useContext(LoginContext)
+  const { loginTokenContext, setLoginTokenContext } = useContext(LoginContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -46,10 +46,10 @@ const Login = () => {
       .then(async (result) => {
         if (result.status == 200 && result.data.status == 'success') {
           await AsyncLocalStorage.setItem('login-Token', result.data.token);
-          setLoginTokenContext(result.data.token)
+          setLoginTokenContext(result.data.token);
           navigate('/app/profile');
         } else {
-          console.log(result.status)
+          console.log(result.status);
         }
       })
       .catch((err) => {

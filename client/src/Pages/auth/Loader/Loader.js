@@ -6,10 +6,11 @@ import Loaders from 'react-loader-spinner';
 const Loader = () => {
   return (
     <Loaders
+      style={{ textAlign: 'center', marginTop: '30vh' }}
       type="Puff"
-      color="#00BFFF"
-      height={100}
-      width={100}
+      color="#8833FF"
+      height={60}
+      width={60}
       timeout={10000} //3 secs
     />
   );
