@@ -49,6 +49,7 @@ const Login = () => {
           setLoginTokenContext(result.data.token)
           navigate('/app/profile');
         } else {
+          console.log(result.status)
         }
       })
       .catch((err) => {
