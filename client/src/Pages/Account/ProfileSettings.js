@@ -10,16 +10,16 @@ import { Form, Formik, ErrorMessage, Field } from 'formik';
 
 import * as Yup from 'yup';
 
-const ProfileSettings = (props) => {
+const ProfileSettings = ({ setTitle, account }) => {
   const { addToast } = useToasts();
   const { loginTokenContext } = useContext(LoginContext);
   const [profileData, setProfileData] = useState();
 
   useEffect(() => {
-    if (props?.account) {
-      setProfileData(props?.account);
+    if (account) {
+      setProfileData(account);
     }
-  }, [props]);
+  }, [account]);
   return (
     <div className="card">
       <div className="card-body">
@@ -52,6 +52,12 @@ const ProfileSettings = (props) => {
                 )
                 .then((response) => {
                   if (response.status === 200) {
+                    setTitle({
+                      firstName: data.firstName,
+                      lastName: data.lastName,
+                      email: data.email,
+                      address: data.address,
+                    });
                     addToast('Saved Successfully', {
                       appearance: 'success',
                       autoDismiss: true,

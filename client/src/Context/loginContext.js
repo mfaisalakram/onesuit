@@ -1,18 +1,21 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from 'react';
 
+export function LoginContextProvider(props) {
+  const [loginTokenContext, setLoginTokenContext] = useState('');
+  const [pageTitle, setPageTitle] = useState('');
 
-export function LoginContextProvider (props){
-    const [loginTokenContext, setLoginTokenContext] = useState('');
-
-    return(
-        <LoginContext.Provider value={{loginTokenContext, setLoginTokenContext }}>
-            
-            {
-                props.children
-            }
-        </LoginContext.Provider>
-    )
+  return (
+    <LoginContext.Provider
+      value={{
+        loginTokenContext,
+        setLoginTokenContext,
+        pageTitle,
+        setPageTitle,
+      }}
+    >
+      {props.children}
+    </LoginContext.Provider>
+  );
 }
 
-export const LoginContext = createContext({})
-
+export const LoginContext = createContext({});

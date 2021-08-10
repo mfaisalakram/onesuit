@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 
 import image1 from '../../images/faisal.png';
 
-const ProfileData = ({ account }) => {
+const ProfileData = ({ title, account }) => {
   const { firstName, lastName, email, address } = account;
-
-  // useEffect(() => {}, [profileData]);
 
   return (
     <div className="card">
@@ -19,9 +17,11 @@ const ProfileData = ({ account }) => {
             height="95"
           />
           <div className="mt-3">
-            <h4>{`${firstName} ${lastName}`}</h4>
-            <p className="text-secondary mb-1">{email}</p>
-            <p className="text-muted font-size-sm">{address}</p>
+            <h4>
+              {title.firstName} {title.lastName}
+            </h4>
+            <p className="text-secondary mb-1">{title.email}</p>
+            <p className="text-muted font-size-sm">{title.address}</p>
             <button className="btn btn-primary">Follow</button>
             <button className="btn btn-outline-primary">Message</button>
           </div>

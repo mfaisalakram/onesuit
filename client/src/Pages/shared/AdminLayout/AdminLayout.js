@@ -58,8 +58,13 @@ const AdminLayout = () => {
               </a>
               <ul>
                 <li>
-                  <Link to="/app/incidentmanagement/tickettype">
+                  <Link to="/app/incidentmanagement/allTickets">
                     <i className="bx bx-right-arrow-alt"></i>Ticket Type
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/app/incidentmanagement/addTicket">
+                    <i className="bx bx-right-arrow-alt"></i>Add Ticket
                   </Link>
                 </li>
               </ul>

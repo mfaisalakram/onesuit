@@ -6,7 +6,8 @@ import Register from './Pages/auth/Register/Register';
 import Profile from './Pages/Account/Profile';
 import NotFound from './Pages/Error/NotFound';
 import IncidentManagement from './Pages/Ticket/IncidentManagement';
-import TicketTypes from './Pages/Ticket/TicketTypes';
+import AllTickets from './Pages/Ticket/AllTicket';
+import AddTicket from './Pages/Ticket/AddTicket';
 
 import Account from './Pages/Account/Account';
 import AllAccounts from './Pages/Account/AllAccounts';
@@ -33,8 +34,12 @@ const routes = [
         element: <IncidentManagement />,
         children: [
           {
-            path: '/tickettype',
-            element: <TicketTypes />,
+            path: '/allTickets',
+            element: <AllTickets />,
+          },
+          {
+            path: '/addTicket',
+            element: <AddTicket />,
           },
         ],
       },

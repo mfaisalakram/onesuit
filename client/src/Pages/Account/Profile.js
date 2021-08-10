@@ -1,26 +1,31 @@
-import React, { useEffect, useState, useContext } from "react";
-import AsyncLocalStorage from "@createnextapp/async-local-storage";
-import { LoginContext } from "../../Context/loginContext";
+import React, { useEffect, useState, useContext } from 'react';
+import AsyncLocalStorage from '@createnextapp/async-local-storage';
+import { LoginContext } from '../../Context/loginContext';
 import { ToastProvider } from 'react-toast-notifications';
 
+import axios from 'axios';
 
-import axios from "axios";
-
-import ProfileSettings from "./ProfileSettings";
-import ProjectStatus from "./ProjectStatus";
-import ProfileData from "./ProfileData";
+import ProfileSettings from './ProfileSettings';
+import ProjectStatus from './ProjectStatus';
+import ProfileData from './ProfileData';
 
 const Profile = () => {
   const { loginTokenContext, setLoginTokenContext } = useContext(LoginContext);
   const [isLoading, setLoading] = useState(false);
+  const [profileUpdate, setProfileUpdate] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: '',
+  });
 
   let [profileData, setProfileData] = useState({});
 
   const getProfileData = async () => {
-    if (loginTokenContext != "") {
+    if (loginTokenContext != '') {
       try {
         const api_result = await axios.get(
-          "https://test-node-samiullah.herokuapp.com/accounts/getAccount",
+          'https://test-node-samiullah.herokuapp.com/accounts/getAccount',
           {
             headers: {
               Authorization: loginTokenContext,
@@ -29,6 +34,12 @@ const Profile = () => {
         );
 
         setProfileData(api_result.data.Account);
+        setProfileUpdate({
+          firstName: api_result.data?.Account?.firstName,
+          lastName: api_result.data?.Account?.lastName,
+          email: api_result.data?.Account?.email,
+          address: api_result.data?.Account?.address,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -41,7 +52,7 @@ const Profile = () => {
   const getToken = async () => {
     let token;
     try {
-      token = await AsyncLocalStorage.getItem("login-Token");
+      token = await AsyncLocalStorage.getItem('login-Token');
       setLoginTokenContext(token);
 
       setLoading(true);
@@ -105,14 +116,16 @@ const Profile = () => {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-            
-                <ProfileData account={profileData} />
-         
+              <ProfileData title={profileUpdate} account={profileData} />
             </div>
             <div className="row col-lg-8">
               <div className="col-lg-12">
-              <ToastProvider>      <ProfileSettings account={profileData} />    </ToastProvider>
-           
+                <ToastProvider>
+                  <ProfileSettings
+                    setTitle={setProfileUpdate}
+                    account={profileData}
+                  />
+                </ToastProvider>
               </div>
               <div className="col-sm-12">
                 <ProjectStatus />
