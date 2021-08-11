@@ -18,7 +18,7 @@ const AdminLayout = () => {
               />
             </div>
             <div>
-              <h4 className="logo-text">Synadmin</h4>
+              <h4 className="logo-text">OnSuite </h4>
             </div>
             <div className="toggle-icon ms-auto">
               <i className="bx bx-first-page"></i>
