@@ -10,8 +10,13 @@ import axios from 'axios';
 const AllTickets = (props) => {
   const navigate = useNavigate();
   const [flag, setFlag] = useState(true);
-  const { loginTokenContext, setLoginTokenContext, setPageTitle } =
-    useContext(LoginContext);
+  const {
+    loginTokenContext,
+    setLoginTokenContext,
+    setPageTitle,
+    ticketManager,
+    setTicketManager,
+  } = useContext(LoginContext);
 
   const getToken = async () => {
     let token;
@@ -63,7 +68,8 @@ const AllTickets = (props) => {
   };
 
   const oneEditClick = (TicktId) => {
-    navigate('/app/incidentmanagement/addTicket');
+    navigate('/app/incidentmanagement/addTicket', { TicktId: TicktId });
+    setTicketManager(true);
   };
 
   useEffect(() => {
@@ -72,16 +78,18 @@ const AllTickets = (props) => {
     } else {
       getData();
     }
-    setPageTitle('ALL Ticket from Context');
-  }, [loginTokenContext, flag]);
-
+    setPageTitle('All Tickets');
+  }, [loginTokenContext]);
+  useEffect(() => {
+    setTicketManager(false);
+  }, []);
   return (
     <div class="card-body">
       <Link to="/app/incidentmanagement/addTicket">
-        <button className="btn btn-primary px-4 mb-4 ">
-          Add New Ticket{' '}
+        <button className="btn btn-primary px-4 mb-5 ">
+          Add New
           <i
-            style={{ fontSize: '17px', marginLeft: '5px' }}
+            style={{ fontSize: '18  px', marginLeft: '5px' }}
             className="fas fa-plus"
           ></i>
         </button>
@@ -90,7 +98,7 @@ const AllTickets = (props) => {
         <thead>
           <tr>
             <th scope="col">Serial No</th>
-            <th scope="col">Ticket Title</th>
+            <th scope="col">Ticket Title </th>
           </tr>
         </thead>
         <tbody>
@@ -101,7 +109,13 @@ const AllTickets = (props) => {
                 <td>{name}</td>
 
                 <button
-                  onClick={() => oneEditClick(_id)}
+                  onClick={() =>
+                    navigate('/app/incidentmanagement/addTicket', {
+                      params: {
+                        abc: 'sami',
+                      },
+                    })
+                  }
                   clickID={_id}
                   style={{
                     border: 'none',

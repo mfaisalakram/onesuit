@@ -8,8 +8,20 @@ const IncidentManagement = () => {
   return (
     <div>
       <ToastProvider>
-        {/* ///fdewd */}
-        <h3 style={{ textAlign: 'center', color: '#8833FF' }}>{pageTitle}</h3>
+        <h3
+          style={{
+            textAlign: 'center',
+            color: '#8833FF',
+            backgroundColor: '#F1E6FF',
+            width: '300px',
+            margin: 'auto',
+            borderRadius: '50px',
+            padding: '10px',
+            marginBottom: '20px',
+          }}
+        >
+          {pageTitle}
+        </h3>
         <Outlet />
       </ToastProvider>
     </div>
