@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import image1 from '../../images/faisal.png';
+
+import { LoginContext } from '../../Context/loginContext';
 
 const ProfileData = ({ title, account }) => {
   const { firstName, lastName, email, address } = account;

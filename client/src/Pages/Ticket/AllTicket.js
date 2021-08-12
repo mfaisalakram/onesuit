@@ -1,27 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-import AsyncLocalStorage from "@createnextapp/async-local-storage";
-import { LoginContext } from "../../Context/loginContext";
+import AsyncLocalStorage from '@createnextapp/async-local-storage';
+import { LoginContext } from '../../Context/loginContext';
 
-import axios from "axios";
+import axios from 'axios';
 
 const AllTickets = (props) => {
   const navigate = useNavigate();
   const [flag, setFlag] = useState(true);
-  const {
-    loginTokenContext,
-    setLoginTokenContext,
-    setPageTitle,
-    ticketManager,
-    setTicketManager,
-  } = useContext(LoginContext);
+  const { loginTokenContext, setLoginTokenContext, setPageTitle } =
+    useContext(LoginContext);
 
   const getToken = async () => {
     let token;
     try {
-      token = await AsyncLocalStorage.getItem("login-Token");
+      token = await AsyncLocalStorage.getItem('login-Token');
       setLoginTokenContext(token);
     } catch (err) {
       console.log(err);
@@ -31,10 +26,9 @@ const AllTickets = (props) => {
 
   const getData = () => {
     axios
-      .get("https://test-node-samiullah.herokuapp.com/tickets/gettickettype", {
+      .get('https://test-node-samiullah.herokuapp.com/tickets/gettickettype', {
         headers: {
           Authorization: loginTokenContext,
-          // x2WrDR8GLSCh4z6DWV6L
         },
       })
       .then((response) => {
@@ -50,7 +44,7 @@ const AllTickets = (props) => {
   const deleteTicket = (TicketId) => {
     axios
       .delete(
-        "https://test-node-samiullah.herokuapp.com/tickets/RemoveTicketType/" +
+        'https://test-node-samiullah.herokuapp.com/tickets/RemoveTicketType/' +
           TicketId,
         {
           headers: {
@@ -58,8 +52,7 @@ const AllTickets = (props) => {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         setFlag(!flag);
       })
       .catch((err) => {
@@ -67,34 +60,27 @@ const AllTickets = (props) => {
       });
   };
 
-  const oneEditClick = (TicktId) => {
-    navigate("/app/incidentmanagement/addTicket", { TicktId: TicktId });
-    setTicketManager(true);
-  };
-
   useEffect(() => {
-    if (loginTokenContext === "") {
+    if (loginTokenContext === '') {
       getToken();
     } else {
       getData();
     }
-    setPageTitle("All Tickets");
-  }, [loginTokenContext]);
-  useEffect(() => {
-    setTicketManager(false);
-  }, []);
+    setPageTitle('All Tickets');
+  }, [loginTokenContext, flag]);
+
   return (
     <div class="card-body">
       <Link to="/app/incidentmanagement/addTicket">
         <button className="btn btn-primary px-4 mb-5 ">
           Add New
           <i
-            style={{ fontSize: "18  px", marginLeft: "5px" }}
+            style={{ fontSize: '18  px', marginLeft: '5px' }}
             className="fas fa-plus"
           ></i>
         </button>
       </Link>
-      <table style={{ backgroundColor: "#F1E6FF" }} class="table mb-0">
+      <table style={{ backgroundColor: '#F1E6FF' }} class="table mb-0">
         <thead>
           <tr>
             <th scope="col">Serial No</th>
@@ -104,36 +90,33 @@ const AllTickets = (props) => {
         <tbody>
           {title?.map(({ name, _id }, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{name}</td>
 
                 <button
                   onClick={() =>
-                    navigate("/app/incidentmanagement/addTicket", {
+                    navigate('/app/incidentmanagement/addTicket', {
                       state: {
                         TicketId: _id,
                         Name: name,
                       },
-                      abc:{
-                        asdasd : "fafaffa"
-                      }
                     })
                   }
                   clickID={_id}
                   style={{
-                    border: "none",
-                    backgroundColor: "transparent",
-                    outline: "none",
+                    border: 'none',
+                    backgroundColor: 'transparent',
+                    outline: 'none',
                   }}
                 >
                   <i
                     style={{
-                      border: "none",
-                      outline: "none",
-                      backgroundColor: "transparent",
-                      fontSize: "20px",
-                      color: "#8833FF",
+                      border: 'none',
+                      outline: 'none',
+                      backgroundColor: 'transparent',
+                      fontSize: '20px',
+                      color: '#8833FF',
                     }}
                     className="fas fa-edit"
                   ></i>
@@ -142,18 +125,18 @@ const AllTickets = (props) => {
                 <button
                   onClick={() => deleteTicket(_id)}
                   style={{
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: "transparent",
+                    border: 'none',
+                    outline: 'none',
+                    backgroundColor: 'transparent',
                   }}
                 >
                   <i
                     style={{
-                      border: "none",
-                      outline: "none",
-                      backgroundColor: "transparent",
-                      fontSize: "20px",
-                      color: "#8833FF",
+                      border: 'none',
+                      outline: 'none',
+                      backgroundColor: 'transparent',
+                      fontSize: '20px',
+                      color: '#8833FF',
                     }}
                     className="far fa-trash-alt"
                   ></i>

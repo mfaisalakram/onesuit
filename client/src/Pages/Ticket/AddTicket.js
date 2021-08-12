@@ -1,8 +1,8 @@
-import React, { useState, useContext  } from 'react';
+import React, { useState, useContext } from 'react';
 import { useEffect } from 'react';
 import AsyncLocalStorage from '@createnextapp/async-local-storage';
 import { useToasts } from 'react-toast-notifications';
-import { useNavigate  , useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -13,18 +13,12 @@ import { Form, Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 
 const AddTicket = (props) => {
+  const { state } = useLocation();
 
-  const { state , abc } = useLocation();
-  console.log(state);
-  console.log(abc);
   const navigate = useNavigate();
   const { addToast } = useToasts();
-  const {
-    loginTokenContext,
-    setLoginTokenContext,
-    setPageTitle,
-    ticketManager,
-  } = useContext(LoginContext);
+  const { loginTokenContext, setLoginTokenContext, setPageTitle } =
+    useContext(LoginContext);
   const getToken = async () => {
     let token;
     try {
@@ -45,13 +39,12 @@ const AddTicket = (props) => {
     } else {
       setPageTitle('Update Ticket');
     }
-  }, [loginTokenContext,state]);
+  }, [loginTokenContext, state]);
 
   {
-    if (ticketManager) {
+    if (state == null) {
       return (
         <div className="card">
-        
           <div className="card-body">
             <Formik
               initialValues={{
@@ -95,8 +88,6 @@ const AddTicket = (props) => {
               }}
             >
               <Form>
-
-
                 <div className="row mb-3">
                   <div className="mb-3 col-sm-3">
                     <h6 className="mb-0">Ticket Title</h6>
@@ -118,13 +109,12 @@ const AddTicket = (props) => {
                   <div className="col-sm-3"></div>
                   <div className="col-sm-9 text-secondary">
                     <button type="submit" className="btn btn-primary px-4">
-                      Save{' '}
+                      Save
                       <i
                         style={{ fontSize: '17px', marginLeft: '5px' }}
                         className="fas fa-share-square"
                       ></i>
                     </button>
-                    {/* <button onClick={() => onEditHandel()}>Update</button> */}
                   </div>
                 </div>
               </Form>
@@ -135,21 +125,24 @@ const AddTicket = (props) => {
     } else {
       return (
         <div className="card">
-         
           <div className="card-body">
             <Formik
               initialValues={{
-                name: '',
+                name: state?.Name,
               }}
               validationSchema={Yup.object({
-                name: Yup.string().required('Title is required'),
+                name: Yup.string().required('Required Field'),
               })}
               onSubmit={(data) => {
+                console.log(data);
                 try {
                   axios
-                    .post(
-                      'https://test-node-samiullah.herokuapp.com/tickets/addtickettype',
-                      data,
+                    .put(
+                      'https://test-node-samiullah.herokuapp.com/tickets/updateTicketType',
+                      {
+                        TicketId: state?.TicketId,
+                        name: data?.name,
+                      },
                       {
                         headers: {
                           Authorization: loginTokenContext,
@@ -157,14 +150,15 @@ const AddTicket = (props) => {
                       }
                     )
                     .then((response) => {
-                      if (response.status === 201) {
-                        addToast('Saved Successfully', {
+                      console.log(response);
+                      if (response.status === 200) {
+                        addToast('Update Successfully', {
                           appearance: 'success',
                           autoDismiss: true,
                         });
                         navigate('/app/incidentmanagement/allTickets');
                       } else {
-                        addToast('Oops!! Error while saving!!', {
+                        addToast('jjjkjkj', {
                           appearance: 'error',
                           autoDismiss: true,
                         });
@@ -181,7 +175,7 @@ const AddTicket = (props) => {
               <Form>
                 <div className="row mb-3">
                   <div className="mb-3 col-sm-3">
-                    <h6 className="mb-0">Update Ticket   {props?.location?.state}  </h6>
+                    <h6 className="mb-0">Update Ticket</h6>
                   </div>
                   <div className="col-sm-12 text-secondary">
                     <Field
@@ -192,7 +186,7 @@ const AddTicket = (props) => {
                       name="name"
                       autoCompelete="off"
                     />
-                    <ErrorMessage name="name" />
+                    <ErrorMessage name="updateName" />
                   </div>
                 </div>
 
@@ -200,13 +194,12 @@ const AddTicket = (props) => {
                   <div className="col-sm-3"></div>
                   <div className="col-sm-9 text-secondary">
                     <button type="submit" className="btn btn-primary px-4">
-                      Update{' '}
+                      Update
                       <i
                         style={{ fontSize: '17px', marginLeft: '5px' }}
                         className="fas fa-edit"
                       ></i>
                     </button>
-                    {/* <button onClick={() => onEditHandel()}>Update</button> */}
                   </div>
                 </div>
               </Form>

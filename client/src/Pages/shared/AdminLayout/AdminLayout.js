@@ -17,9 +17,11 @@ const AdminLayout = () => {
                 alt="logo icon"
               />
             </div>
-            <div>
-              <h4 className="logo-text">OnSuite </h4>
-            </div>
+            <Link to="/app">
+              <div>
+                <h4 className="logo-text">OnSuite </h4>
+              </div>
+            </Link>
             <div className="toggle-icon ms-auto">
               <i className="bx bx-first-page"></i>
             </div>
@@ -653,12 +655,8 @@ const AdminLayout = () => {
 
       <div className="overlay toggle-icon"></div>
 
-      {/* <a href="javaScript:;" className="back-to-top"><i className="bx bxs-up-arrow-alt"></i></a> */}
-
       <footer className="page-footer">
-        <p className="mb-0">
-          Ticket Management - Copyright © 2021. All right reserved.
-        </p>
+        <p className="mb-0">OneSuite - Copyright © 2021. All right reserved.</p>
       </footer>
     </div>
   );

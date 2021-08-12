@@ -43,21 +43,19 @@ const Login = () => {
         username: data.email,
         password: data.password,
       })
-      .then(async (result) => {
-        if (result.status == 200 && result.data.status == 'success') {
-          await AsyncLocalStorage.setItem('login-Token', result.data.token);
-          setLoginTokenContext(result.data.token);
+      .then(async (response) => {
+        if (response.status == 200 && response.data.status == 'success') {
+          await AsyncLocalStorage.setItem('login-Token', response.data.token);
+          setLoginTokenContext(response.data.token);
           navigate('/app/profile');
         } else {
-          console.log(result.status);
+          console.log(response.status);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  useEffect(() => {}, []);
 
   if (loading) {
     return <Loader />;

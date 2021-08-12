@@ -10,7 +10,12 @@ import ProjectStatus from './ProjectStatus';
 import ProfileData from './ProfileData';
 
 const Profile = () => {
-  const { loginTokenContext, setLoginTokenContext } = useContext(LoginContext);
+  const {
+    loginTokenContext,
+    setLoginTokenContext,
+    userBoxData,
+    setUserBoxData,
+  } = useContext(LoginContext);
   const [isLoading, setLoading] = useState(false);
   const [profileUpdate, setProfileUpdate] = useState({
     firstName: '',
@@ -35,6 +40,12 @@ const Profile = () => {
 
         setProfileData(api_result.data.Account);
         setProfileUpdate({
+          firstName: api_result.data?.Account?.firstName,
+          lastName: api_result.data?.Account?.lastName,
+          email: api_result.data?.Account?.email,
+          address: api_result.data?.Account?.address,
+        });
+        setUserBoxData({
           firstName: api_result.data?.Account?.firstName,
           lastName: api_result.data?.Account?.lastName,
           email: api_result.data?.Account?.email,
