@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext  } from 'react';
 import { useEffect } from 'react';
 import AsyncLocalStorage from '@createnextapp/async-local-storage';
 import { useToasts } from 'react-toast-notifications';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  , useLocation} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -13,6 +13,10 @@ import { Form, Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 
 const AddTicket = (props) => {
+
+  const { state , abc } = useLocation();
+  console.log(state);
+  console.log(abc);
   const navigate = useNavigate();
   const { addToast } = useToasts();
   const {
@@ -35,19 +39,19 @@ const AddTicket = (props) => {
     if (loginTokenContext == '') {
       getToken();
     }
-    console.log('props', props);
-    if (ticketManager) {
+
+    if (state == null) {
       setPageTitle('Add Ticket');
     } else {
       setPageTitle('Update Ticket');
     }
-  }, [loginTokenContext, props]);
+  }, [loginTokenContext,state]);
 
   {
     if (ticketManager) {
       return (
         <div className="card">
-          {JSON.stringify(props.clickID)}
+        
           <div className="card-body">
             <Formik
               initialValues={{
@@ -91,6 +95,8 @@ const AddTicket = (props) => {
               }}
             >
               <Form>
+
+
                 <div className="row mb-3">
                   <div className="mb-3 col-sm-3">
                     <h6 className="mb-0">Ticket Title</h6>
@@ -129,6 +135,7 @@ const AddTicket = (props) => {
     } else {
       return (
         <div className="card">
+         
           <div className="card-body">
             <Formik
               initialValues={{
@@ -174,7 +181,7 @@ const AddTicket = (props) => {
               <Form>
                 <div className="row mb-3">
                   <div className="mb-3 col-sm-3">
-                    <h6 className="mb-0">Update Ticket</h6>
+                    <h6 className="mb-0">Update Ticket   {props?.location?.state}  </h6>
                   </div>
                   <div className="col-sm-12 text-secondary">
                     <Field
