@@ -7,7 +7,7 @@ import { LoginContext } from '../../Context/loginContext';
 
 import axios from 'axios';
 
-const AllTickets = (props) => {
+const TicketCenter = (props) => {
   const navigate = useNavigate();
   const [flag, setFlag] = useState(true);
   const { loginTokenContext, setLoginTokenContext, setPageTitle } =
@@ -26,14 +26,22 @@ const AllTickets = (props) => {
 
   const getData = () => {
     axios
-      .get('https://test-node-samiullah.herokuapp.com/tickets/gettickettype', {
-        headers: {
-          Authorization: loginTokenContext,
-        },
-      })
+      .get(
+        'https://test-node-samiullah.herokuapp.com/ticketCenter/alltickets',
+        {
+          headers: {
+            Authorization: loginTokenContext,
+          },
+        }
+      )
       .then((response) => {
+        console.log(response);
         if (response.status === 200) {
-          setTitle(response?.data?.TicketTypes);
+          setTitle(response?.data?.tickets);
+
+          //  single   // setTitle(response?.data?.tickets[1]?.Title);
+
+          console.log(title);
         }
       })
       .catch((error) => {
@@ -66,16 +74,16 @@ const AllTickets = (props) => {
     } else {
       getData();
     }
-    setPageTitle('All Tickets');
+    setPageTitle('Generated Tickets');
   }, [loginTokenContext, flag]);
 
   return (
     <div className="card-body">
-      <Link to="/app/incidentmanagement/addTicketType">
+      <Link to="/app/incidentmanagement/generateNew">
         <button className="btn btn-primary px-4 mb-5 ">
-          Add new
+          Generate new
           <i
-            style={{ fontSize: '18  px', marginLeft: '5px' }}
+            style={{ fontSize: '18px', marginLeft: '5px' }}
             className="fas fa-plus"
           ></i>
         </button>
@@ -85,42 +93,18 @@ const AllTickets = (props) => {
           <tr>
             <th scope="col">Serial No</th>
             <th scope="col">Ticket Title </th>
+            <th scope="col">Ticket Type </th>
           </tr>
         </thead>
         <tbody>
-          {title?.map(({ name, _id }, index) => {
+          {title?.map(({ Title, Description, _id }, index) => {
             return (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{name}</td>
-
-                <button
-                  onClick={() =>
-                    navigate('/app/incidentmanagement/addTicketType', {
-                      state: {
-                        TicketId: _id,
-                        Name: name,
-                      },
-                    })
-                  }
-                  clickID={_id}
-                  style={{
-                    border: 'none',
-                    backgroundColor: 'transparent',
-                    outline: 'none',
-                  }}
-                >
-                  <i
-                    style={{
-                      border: 'none',
-                      outline: 'none',
-                      backgroundColor: 'transparent',
-                      fontSize: '20px',
-                      color: '#8833FF',
-                    }}
-                    className="fas fa-edit"
-                  ></i>
-                </button>
+                <td>
+                  {Title}
+                  {/* ( <small> {Description} </small>) */}
+                </td>
 
                 <button
                   onClick={() => deleteTicket(_id)}
@@ -150,4 +134,4 @@ const AllTickets = (props) => {
   );
 };
 
-export default AllTickets;
+export default TicketCenter;

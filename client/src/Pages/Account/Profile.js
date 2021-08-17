@@ -10,12 +10,8 @@ import ProjectStatus from './ProjectStatus';
 import ProfileData from './ProfileData';
 
 const Profile = () => {
-  const {
-    loginTokenContext,
-    setLoginTokenContext,
-    userBoxData,
-    setUserBoxData,
-  } = useContext(LoginContext);
+  const { loginTokenContext, setLoginTokenContext, setUserBoxData } =
+    useContext(LoginContext);
   const [isLoading, setLoading] = useState(false);
   const [profileUpdate, setProfileUpdate] = useState({
     firstName: '',
@@ -27,7 +23,7 @@ const Profile = () => {
   let [profileData, setProfileData] = useState({});
 
   const getProfileData = async () => {
-    if (loginTokenContext != '') {
+    if (loginTokenContext !== '') {
       try {
         const api_result = await axios.get(
           'https://test-node-samiullah.herokuapp.com/accounts/getAccount',

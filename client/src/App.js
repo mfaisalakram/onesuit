@@ -1,20 +1,15 @@
-
 import './App.css';
 
-import {useRoutes} from 'react-router-dom'
-import routes from './routes'
+import { useRoutes } from 'react-router-dom';
+import routes from './routes';
 
-import { LoginContextProvider } from './Context/loginContext'
-
+import { LoginContextProvider } from './Context/loginContext';
 function App() {
-
-  const routing  = useRoutes (routes);
+  const routing = useRoutes(routes);
 
   return (
     <>
-    <LoginContextProvider>
-    {routing}
-    </LoginContextProvider>
+      <LoginContextProvider>{routing}</LoginContextProvider>
     </>
   );
 }

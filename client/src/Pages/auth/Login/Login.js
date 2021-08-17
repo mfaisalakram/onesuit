@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 import { LoginContext } from '../../../Context/loginContext';
 
@@ -48,6 +49,7 @@ const Login = () => {
           await AsyncLocalStorage.setItem('login-Token', response.data.token);
           setLoginTokenContext(response.data.token);
           navigate('/app/profile');
+          // return <Redirect to="/app/profile" />;
         } else {
           console.log(response.status);
         }

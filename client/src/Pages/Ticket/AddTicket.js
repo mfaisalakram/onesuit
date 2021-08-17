@@ -71,7 +71,7 @@ const AddTicket = (props) => {
                           appearance: 'success',
                           autoDismiss: true,
                         });
-                        navigate('/app/incidentmanagement/allTickets');
+                        navigate('/app/incidentmanagement/allTicketTypes');
                       } else {
                         addToast('Oops!! Error while saving!!', {
                           appearance: 'error',
@@ -156,7 +156,7 @@ const AddTicket = (props) => {
                           appearance: 'success',
                           autoDismiss: true,
                         });
-                        navigate('/app/incidentmanagement/allTickets');
+                        navigate('/app/incidentmanagement/allTicketTypes');
                       } else {
                         addToast('jjjkjkj', {
                           appearance: 'error',

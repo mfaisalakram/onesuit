@@ -15,10 +15,10 @@ const AllAccounts = () => {
       });
   }, []);
   return (
-    <div class="card-body">
+    <div className="card-body">
       <table
         style={{ backgroundColor: '#F1E6FF' }}
-        class="table mb-0  table-striped"
+        className="table mb-0  table-striped"
       >
         <thead>
           <tr>

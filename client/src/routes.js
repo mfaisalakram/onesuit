@@ -11,6 +11,8 @@ import AddTicket from './Pages/Ticket/AddTicket';
 
 import Account from './Pages/Account/Account';
 import AllAccounts from './Pages/Account/AllAccounts';
+import TicketCenter from './Pages/Ticket/TicketCenter';
+import GenerateNew from './Pages/Ticket/GenerateNew';
 
 const routes = [
   {
@@ -34,12 +36,20 @@ const routes = [
         element: <IncidentManagement />,
         children: [
           {
-            path: '/allTickets',
+            path: '/allTicketTypes',
             element: <AllTickets />,
           },
           {
-            path: '/addTicket',
+            path: '/addTicketType',
             element: <AddTicket />,
+          },
+          {
+            path: '/ticketCenter',
+            element: <TicketCenter />,
+          },
+          {
+            path: '/generateNew',
+            element: <GenerateNew />,
           },
         ],
       },

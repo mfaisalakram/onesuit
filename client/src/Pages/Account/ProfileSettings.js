@@ -5,9 +5,7 @@ import { useToasts } from 'react-toast-notifications';
 import axios from 'axios';
 
 import { LoginContext } from '../../Context/loginContext';
-
 import { Form, Formik, ErrorMessage, Field } from 'formik';
-
 import * as Yup from 'yup';
 
 const ProfileSettings = ({ setTitle, account }) => {
@@ -38,9 +36,9 @@ const ProfileSettings = ({ setTitle, account }) => {
             email: Yup.string().email().required('email is required'),
             address: Yup.string().required('address is required'),
           })}
-          onSubmit={(data, { resetForm }) => {
+          onSubmit={async (data, { resetForm }) => {
             try {
-              axios
+              await axios
                 .post(
                   'https://test-node-samiullah.herokuapp.com/accounts/updateProfile',
                   data,
